@@ -1,11 +1,37 @@
 const apiWotd = "https://words.dev-apis.com/word-of-the-day?random=1";
 const apiValidate = "https://words.dev-apis.com/validate-word";
+const header = document.querySelector(".header");
 const boxes = document.querySelectorAll(".scoreboard-letter");
+const newGame = document.querySelector(".new-game");
+
+const NUMGUESSES = 6;
 
 let wordBuffer = "";
 let currentRow = 0;
 let guesses = [];
+let wordOfTheDay = "";
 
+function reset() {
+    console.log("resetting");
+    wordBuffer = "";
+    currentRow = 0;
+    guesses = [];
+    getWordOfTheDay();
+    header.innerText = "WORDLE";
+    header.style.color = "whitesmoke";
+    wipeBoard();
+    newGame.setAttribute("hidden", 1);
+    newGame.setAttribute("disabled", 1);
+}
+
+function wipeBoard() {
+    for (let i=0; i<NUMGUESSES; i++) {
+        for (let j=0; j<5; j++) {
+            boxes[j+i*5].innerText = "";
+            boxes[j+i*5].classList = "scoreboard-letter";
+        }
+    }
+}
 
 function isLetter(letter) {
     return /^[a-zA-Z]$/.test(letter);
@@ -20,7 +46,7 @@ async function getWordOfTheDay() {
             return response.json();
         })
         .then(data => {
-            //console.log(data);
+            console.log(data);
             wordOfTheDay = data['word'];
           })
           .catch(error => {
@@ -75,11 +101,7 @@ function checkWord(word) {
             boxes[i+currentRow*5].classList.add("wrong-letter");
         }
     }
-
-    if (word === wordOfTheDay) {
-        return true;
-    }
-    return false;
+    return (word === wordOfTheDay);
 }
 
 function updateWord() {
@@ -107,7 +129,6 @@ function gameOver(condition) {
         .querySelector("body")
         .removeEventListener("keydown", function(event) {});
     // Game over message
-    let header = document.querySelector(".header");
     if (condition === 0) {
         header.innerText = "YOU WIN";
         header.style.color = "green";
@@ -115,6 +136,8 @@ function gameOver(condition) {
         header.innerText = "YOU LOSE";
         header.style.color = "red";
     }
+    newGame.removeAttribute("hidden");
+    newGame.removeAttribute("disabled");
 }
 
 function init() {
@@ -136,18 +159,18 @@ function init() {
                 if (event.key === "Enter") {
                     if (await validateWord(wordBuffer)) {
                         if (checkWord(wordBuffer)) { gameOver(0); }
-                        else if (currentRow === 5) { gameOver(1); }
+                        else if (currentRow === NUMGUESSES-1) { gameOver(1); }
                         else {
                             guesses.push(wordBuffer);
                             wordBuffer = "";
                             currentRow++;
                         }
                     } else {invalidate();}
-                    
                 }
             }
             updateWord();
         });
+    newGame.addEventListener("click", function () {reset()});
 }
 
 init();

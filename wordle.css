@@ -20,7 +20,8 @@ body {
 
 .page {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .scoreboard-letter {
@@ -62,4 +63,24 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     max-width: 500px;
+}
+
+.menu-button {
+    margin: 30px;
+    height: 50px;
+    width: 200px;
+    font-size: 35px;
+    border-width: 2px;
+    border-color: rgb(70, 70, 70);
+    border-style: solid;
+    color: whitesmoke;
+    background-color: rgba(70, 70, 70, 0.3);
+}
+
+.menu-button:hover {
+    background-color: rgba(70, 70, 70, 0.5);
+}
+
+.menu-button:active {
+    background-color: rgba(70, 70, 70, 0.8);
 }
