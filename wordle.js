@@ -1,4 +1,4 @@
-const apiWotd = "https://words.dev-apis.com/word-of-the-day";
+const apiWotd = "https://words.dev-apis.com/word-of-the-day?random=1";
 const apiValidate = "https://words.dev-apis.com/validate-word";
 const boxes = document.querySelectorAll(".scoreboard-letter");
 
@@ -20,7 +20,7 @@ async function getWordOfTheDay() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
+            //console.log(data);
             wordOfTheDay = data['word'];
           })
           .catch(error => {
