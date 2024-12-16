@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+body {
+    background-image: linear-gradient(black, rgb(25, 0, 45));
+    background-attachment: fixed;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+}
+
+.header {
+    color: whitesmoke;
+    font-size: 50px;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+}
+
+.scoreboard-letter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-width: 2px;
+    border-color: rgb(70, 70, 70);
+    border-style: solid;
+    color: whitesmoke;
+    font-size: 45px;
+    font-weight: bolder;
+    width: 65px;
+    height: 65px;
+    margin: 3px;
+}
+
+.correct-place {
+    background-color: rgb(0, 188, 0);
+    border: none;
+}
+
+.correct-letter {
+    background-color: rgb(180, 168, 0);
+    border: none;
+}
+
+.wrong-letter {
+    background-color: rgb(70, 70, 70);
+    border: none;
+}
+
+.invalid {
+    color: red;
+}
+
+.scoreboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    max-width: 500px;
+}
